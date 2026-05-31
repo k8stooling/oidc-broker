@@ -1,0 +1,27 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: {{ IF_USING_CERTMANAGER }}
+  labels:
+    app.kubernetes.io/name: oidc-broker
+    app.kubernetes.io/version: 1.0.0
+  name: oidc-broker
+  namespace: {{ NAMESPACE }}
+spec:
+  ingressClassName: {{ INGRESS_CLASS }}
+  rules:
+    - host: {{ OIDC_BROKER_URL }}
+      http:
+        paths:
+          - backend:
+              service:
+                name: oidc-broker
+                port:
+                  number: 7000
+            path: /
+            pathType: Prefix
+  tls:
+    - hosts:
+        - {{ OIDC_BROKER_URL }}
+      secretName: oidc-broker-tls-secret

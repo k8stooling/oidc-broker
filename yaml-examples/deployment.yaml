@@ -1,0 +1,54 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: oidc-broker
+  namespace: { { NAMESPACE } }
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: oidc-broker
+  template:
+    metadata:
+      labels:
+        app: oidc-broker
+        app.kubernetes.io/name: oidc-broker
+    spec:
+      serviceAccountName: oidc-broker
+      containers:
+        - name: oidc-broker-api
+          image: {{ IMAGE_AND_TAG }}
+          imagePullPolicy: Always
+          env:
+            - name: ISSUER_URL
+              value: "{{OIDC_PROVIDER_ISSUER_URL}}"
+            - name: TENANT_ID
+              value: "{{TENAND_ID_IF_NEEDED}}"
+            - name: TOKEN_TTL
+              value: "1h"
+          ports:
+            - containerPort: 80
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+          securityContext:
+            allowPrivilegeEscalation: false
+            runAsNonRoot: true
+            runAsUser: 101
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop:
+                - ALL
+            seccompProfile:
+              type: RuntimeDefault
+      priorityClassName: {{ MY_PRIORITY_IF_USED }}
+      restartPolicy: Always
+      schedulerName: default-scheduler
+      securityContext:
+        runAsNonRoot: true
+        seccompProfile:
+          type: RuntimeDefault

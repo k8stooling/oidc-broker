@@ -24,3 +24,6 @@ The following enviroment variables can be set as part of the Deployment
 ### Configuration of Secrets file
 The Secret Name in the Namespace needs to be <b>oidc-broker</b>
 The Key which represents the Signing RSA has to be set to <b>rsa_key</b>
+
+### Deployment YAML-Files
+(!) <b><i>Check also the yaml-Examples files</b></i>
