@@ -1,4 +1,4 @@
-<img src="https://github.com/maikbrauer/tocrocon/assets/53018978/eae2d537-2641-4648-873d-740c302af8a7" width="64" />
+<img width="122" height="131" alt="image" src="https://github.com/user-attachments/assets/9781143d-2eab-47d5-8adf-9598a7b239ad" />
 
 # OIDC Broker
 This tool acts as a broker that allows you to incorporate output from another OIDC provider into a newly generated token. This token can then be configured as a trusted entity for the Kubernetes API.
