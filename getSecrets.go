@@ -29,8 +29,6 @@ func getCurrentNamespace() (string, error) {
 }
 
 func getSecretData() string {
-	secretName := "oidc-broker"
-	secretKey := "rsa_key"
 
 	// detect current namespace dynamically
 	namespace, err := getCurrentNamespace()
@@ -45,13 +43,13 @@ func getSecretData() string {
 	}
 
 	// create Kubernetes client
-	clientset, err := kubernetes.NewForConfig(config)
+	clientSet, err := kubernetes.NewForConfig(config)
 	if err != nil {
-		panic(fmt.Errorf("failed to create clientset: %w", err))
+		panic(fmt.Errorf("failed to create clientSet: %w", err))
 	}
 
 	// retrieve the secret from the detected namespace
-	secret, err := clientset.CoreV1().
+	secret, err := clientSet.CoreV1().
 		Secrets(namespace).
 		Get(context.TODO(), secretName, metav1.GetOptions{})
 	if err != nil {

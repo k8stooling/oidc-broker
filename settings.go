@@ -5,6 +5,12 @@ import (
 	"time"
 )
 
+const SERVER_PORT = "8080"
+const TOKEN_TTL = 15 * time.Minute
+const BROKER_VERSION = "1.0.1"
+const secretName = "oidc-broker"
+const secretKey = "rsa_key"
+
 type Config struct {
 	Addr           string
 	IssuerURL      string

@@ -69,7 +69,7 @@ func (s *Server) handleToken(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("X-Token-Issuer", s.cfg.IssuerURL)
 	w.Header().Set("X-Token-Kid", s.cfg.KID)
 	w.Header().Set("X-Content-Type-Options", "nosniff")
-	w.Header().Set("X-Oidc-Broker-Version", "1.0.0")
+	w.Header().Set("X-Oidc-Broker-Version", BROKER_VERSION)
 
 	writeJSON(w, http.StatusOK, map[string]interface{}{
 		"token_type": "Bearer",
